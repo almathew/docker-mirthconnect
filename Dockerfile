@@ -18,6 +18,9 @@ RUN \
   mkdir -p /opt/mirthconnect/appdata
 WORKDIR /opt/mirthconnect
 
+# Install nc (in order to determine when Mirth Connect is listening)
+RUN apt-get update && apt-get install netcat -y
+
 COPY templates/conf/mirth.properties /opt/mirthconnect/conf/mirth.properties
 
 # NGiNX (X-Forwarded-Proto Proxy)

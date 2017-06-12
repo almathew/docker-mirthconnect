@@ -6,9 +6,6 @@ set -o pipefail
 . /usr/local/bin/utilities.sh
 PROPERTIES_FILE=/opt/mirthconnect/conf/mirth.properties
 
-# Start NGiNX reverse proxy
-/usr/sbin/nginx
-
 # If DATABASE_URL is defined (and is a postgresql:// URL), replace the
 # default in-container Derby database connection with a PostgreSQL connection
 if [ -n "$DATABASE_URL" ]; then
@@ -26,4 +23,13 @@ if [ -n "$DATABASE_URL" ]; then
 fi
 
 # Launch Mirth Server
-java -jar mirth-server-launcher.jar
+echo "INFO: Launching Mirth Connect Administrator..."
+java -jar mirth-server-launcher.jar &
+
+echo "INFO: Waiting for Mirth Connect to start up..."
+while ! echo exit | nc localhost 443 &> /dev/null; do echo -n .; sleep 1; done
+echo
+
+# Start NGiNX reverse proxy
+echo "INFO: Launching NGiNX..."
+/usr/sbin/nginx
