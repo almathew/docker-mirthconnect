@@ -31,7 +31,7 @@ To deploy:
 
 1. This default image is configured to EXPOSE 10 TCP HL7 channels, on ports 9661 through 9670. To set up an internal TCP Endpoint so that you can send messages to these HL7 channels: first, create the channel(s) you need from the Mirth Connect Administrator application. Then, using the Aptible CLI, create a [TCP Endpoint](https://www.aptible.com/documentation/enclave/reference/apps/endpoints/tcp-endpoints.html) that listens on each of the ports on which you've created channels. For example, to create an Endpoint for ports 9661, 9662 and 9663, you could run:
 
-        aptible endpoints:create cmd --app mirthconnect --internal --ports 9661 9662 9663
+        aptible endpoints:tcp:create cmd --app mirthconnect --internal --ports 9661 9662 9663
 
 1. To receive HL7 messages from a data partner, you will likely need to set up a site-to-site IPsec VPN connection with the data partner who'll be sending the HL7 messages. When you're ready to set up this VPN connection, just [reach out](http://contact.aptible.com) to Aptible Support!
 
