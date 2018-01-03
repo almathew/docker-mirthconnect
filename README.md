@@ -29,7 +29,11 @@ To deploy:
 
 1. Finally, create an HTTPS Endpoint from the Aptible Dashboard, tied to port 3000. (If you don't select a port when you create the Endpoint, it will default to 3000.) Once the Endpoint is provisioned, you'll be able to access the Mirth Connect Administrator at the address displayed on the Aptible Dashboard. From there, you can click "Launch Mirth Connect Administrator" to download the JAR file from which you'll set up channels.
 
-1. This default image is configured to EXPOSE 10 TCP HL7 channels, on ports 9661 through 9670. To receive HL7 messages on Aptible, you'll need to set up a site-to-site IPsec VPN connection with the data partner who'll be sending the HL7 messages. When you're ready to set up this VPN connection, just [reach out](http://contact.aptible.com) to Aptible Support!
+1. This default image is configured to EXPOSE 10 TCP HL7 channels, on ports 9661 through 9670. To set up an internal TCP Endpoint so that you can send messages to these HL7 channels: first, create the channel(s) you need from the Mirth Connect Administrator application. Then, using the Aptible CLI, create a [TCP Endpoint](https://www.aptible.com/documentation/enclave/reference/apps/endpoints/tcp-endpoints.html) that listens on each of the ports on which you've created channels. For example, to create an Endpoint for ports 9661, 9662 and 9663, you could run:
+
+        aptible endpoints:create cmd --app mirthconnect --internal --ports 9661 9662 9663
+
+1. To receive HL7 messages from a data partner, you will likely need to set up a site-to-site IPsec VPN connection with the data partner who'll be sending the HL7 messages. When you're ready to set up this VPN connection, just [reach out](http://contact.aptible.com) to Aptible Support!
 
 ## Copyright and License
 
