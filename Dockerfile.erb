@@ -1,9 +1,8 @@
 # See https://github.com/brandonstevens/mirth-connect-docker
 FROM java:8
 
-ENV MIRTHCONNECT_VERSION 3.5.0.8232.b2153
-ENV MIRTHCONNECT_SHA1SUM 0550d00905ea7161a47d78cedbae35699a5f1b67
-
+ENV MIRTHCONNECT_VERSION <%= ENV.fetch('MIRTHCONNECT_VERSION') %>
+ENV MIRTHCONNECT_SHA1SUM <%= ENV.fetch('MIRTHCONNECT_SHA1SUM') %>
 # Install NGiNX
 RUN apt-get update && apt-get install -y --no-install-recommends nginx && \
   rm -rf /var/lib/apt/lists/*
@@ -39,3 +38,4 @@ COPY templates/etc /etc
 COPY templates/bin /usr/local/bin
 
 CMD ["/usr/local/bin/mirthconnect-wrapper.sh"]
+
